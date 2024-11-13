@@ -3,8 +3,6 @@
 // You can read more about it in the documentation:
 // https://doc.rust-lang.org/std/convert/trait.From.html
 
-use std::default;
-
 #[derive(Debug)]
 struct Person {
     name: String,
