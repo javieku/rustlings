@@ -3,6 +3,8 @@
 // You can read more about it in the documentation:
 // https://doc.rust-lang.org/std/convert/trait.From.html
 
+use std::default;
+
 #[derive(Debug)]
 struct Person {
     name: String,
@@ -34,7 +36,16 @@ impl Default for Person {
 // 5. Parse the second element from the split operation into a `u8` as the age.
 // 6. If parsing the age fails, return the default of `Person`.
 impl From<&str> for Person {
-    fn from(s: &str) -> Self {}
+    fn from(s: &str) -> Self {
+        let tokens: Vec<&str> = s.split(',').collect();
+        if tokens.len() != 2 || tokens[0].is_empty() || tokens[1].parse::<u8>().is_err() {
+            return Person::default();
+        }
+        Person {
+            name: String::from(tokens[0]),
+            age: tokens[1].parse::<u8>().unwrap(),
+        }
+    }
 }
 
 fn main() {
